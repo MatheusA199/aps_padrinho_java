@@ -1,10 +1,12 @@
 package br.com.ong.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import br.com.pessoa_fisica.dao.PessoaFisicaDao;
@@ -22,34 +25,51 @@ public class TelaPrincipal extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField txtBemvindoAoSistema;
+    
+    private JButton createStyledButton(String text, Color background, Color foreground) {
+        JButton button = new JButton(text);
+        button.setBackground(background);
+        button.setForeground(foreground);
+        button.setFocusPainted(false); // Remove o contorno de foco quando o botão é selecionado
+        button.setBorderPainted(false); // Remove a borda do botão
+        // Outras configurações de estilo desejadas, como fonte, tamanho, etc.
+        return button;
+    }
 
     public TelaPrincipal(String username) {
     	
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 607, 463);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        
+        Border borda = BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.RED),  // Borda interna
+                BorderFactory.createEmptyBorder(5, 5, 5, 5) // Margens
+        );
 
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        JButton telaPrincipalOng = new JButton("Início");
+        JButton telaPrincipalOng = createStyledButton("Início", new Color(186, 215, 233), Color.BLACK);
         telaPrincipalOng.setBounds(10, 10, 144, 75);
+        telaPrincipalOng.setBorder(borda);
         contentPane.add(telaPrincipalOng);
 
-        JButton primeiraOng = new JButton("Comida no Prato");
+        JButton primeiraOng = createStyledButton("Comida no Prato", new Color(127, 205, 145), Color.WHITE);
+
         primeiraOng.setBounds(10, 95, 144, 75);
         contentPane.add(primeiraOng);
 
-        JButton segundaOng = new JButton("Instituto Regeneração Global (IRG)");
+        JButton segundaOng = createStyledButton("Instituto Regeneração Global (IRG)", new Color(127, 205, 145), Color.WHITE);
         segundaOng.setBounds(10, 177, 144, 75);
         contentPane.add(segundaOng);
 
-        JButton terceiraOng = new JButton("Direito à alimentação");
+        JButton terceiraOng = createStyledButton("Direito à alimentação", new Color(127, 205, 145), Color.WHITE);
         terceiraOng.setBounds(10, 261, 144, 75);
         contentPane.add(terceiraOng);
 
-        JButton ranking = new JButton("Ranking");
+        JButton ranking = createStyledButton("Ranking", new Color(186, 215, 233), Color.BLACK);
         ranking.setBounds(10, 346, 144, 75);
         	    contentPane.add(ranking);
 

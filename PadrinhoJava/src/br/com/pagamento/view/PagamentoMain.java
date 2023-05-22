@@ -88,11 +88,11 @@ public class PagamentoMain extends JFrame implements ActionListener {
         // Lógica para definir o texto do JLabel com base no parâmetro recebido
         String parametro = numeroOngBtn; // Substitua "exemplo" pelo valor do parâmetro real que você recebe
         if (parametro.equals("1")) {
-            numeroOngField.setText("Comida no Prato");
+            numeroOngField.setText("Prato Cheio");
         } else if (parametro.equals("2")) {
-            numeroOngField.setText("Instituto Regeneração Global (IRG)");
+            numeroOngField.setText("Cidade Sem Fome");
         } else if (parametro.equals("3")) {
-            numeroOngField.setText("Direito à alimentação");
+            numeroOngField.setText("Banco de Alimentos");
         }
 
         pagarButton = new JButton("Pagar");

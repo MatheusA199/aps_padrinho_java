@@ -1,10 +1,14 @@
 package br.com.ong.view;
 
+import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URI;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import br.com.pagamento.view.PagamentoMain;
@@ -23,41 +28,68 @@ public class TerceiraOng extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField txtBemvindoAoSistema;
-
+    
+    private JButton createStyledButton(String text, Color background, Color foreground) {
+        JButton button = new JButton(text);
+        button.setBackground(background);
+        button.setForeground(foreground);
+        button.setFocusPainted(false); // Remove o contorno de foco quando o botão é selecionado
+        button.setBorderPainted(false); // Remove a borda do botão
+        // Outras configurações de estilo desejadas, como fonte, tamanho, etc.
+        return button;
+    }
+    
+    private static void abrirSite(String url) {
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.browse(new URI(url));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     public TerceiraOng(String username) {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 607, 463);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        
+        Border borda = BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.RED),  // Borda interna
+                BorderFactory.createEmptyBorder(5, 5, 5, 5) // Margens
+        );
 
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        JButton telaPrincipalOng = new JButton("Início");
+        JButton telaPrincipalOng = createStyledButton("Início", new Color(186, 215, 233), Color.BLACK);
         telaPrincipalOng.setBounds(10, 10, 144, 75);
+        telaPrincipalOng.setBorder(borda);
         contentPane.add(telaPrincipalOng);
 
-        JButton primeiraOng = new JButton("Comida no Prato");
+        JButton primeiraOng = createStyledButton("Prato Cheio", new Color(127, 205, 145), Color.WHITE);
+
         primeiraOng.setBounds(10, 95, 144, 75);
         contentPane.add(primeiraOng);
 
-        JButton segundaOng = new JButton("Instituto Regeneração Global (IRG)");
+        JButton segundaOng = createStyledButton("Cidade Sem Fome", new Color(127, 205, 145), Color.WHITE);
         segundaOng.setBounds(10, 177, 144, 75);
         contentPane.add(segundaOng);
 
-        JButton terceiraOng = new JButton("Direito à alimentação");
+        JButton terceiraOng = createStyledButton("Banco de Alimentos", new Color(127, 205, 145), Color.WHITE);
         terceiraOng.setBounds(10, 261, 144, 75);
         contentPane.add(terceiraOng);
 
-        JButton ranking = new JButton("Ranking");
+        JButton ranking = createStyledButton("Ranking", new Color(186, 215, 233), Color.BLACK);
         ranking.setBounds(10, 346, 144, 75);
         	    contentPane.add(ranking);
-
         txtBemvindoAoSistema = new JTextField();
         txtBemvindoAoSistema.setEditable(false);
         txtBemvindoAoSistema.setHorizontalAlignment(SwingConstants.CENTER);
         txtBemvindoAoSistema.setFont(new Font("Tahoma", Font.BOLD, 16));
-        txtBemvindoAoSistema.setText("Direito à alimentação");
+        txtBemvindoAoSistema.setText("Banco de Alimentos");
         txtBemvindoAoSistema.setBounds(220, 20, 350, 50);
         contentPane.add(txtBemvindoAoSistema);
         txtBemvindoAoSistema.setColumns(10);
@@ -67,17 +99,17 @@ public class TerceiraOng extends JFrame {
         txtrDescricaoOng.setWrapStyleWord(true);
         txtrDescricaoOng.setEditable(false);
         txtrDescricaoOng.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        txtrDescricaoOng.setText("A ONG Direito à Alimentação trabalha para promover o acesso à alimentação saudável e sustentável, através de parcerias com comunidades locais e ações de advocacy. A organização tem como objetivo garantir o direito humano à alimentação adequada, combater a fome e promover a segurança alimentar e nutricional.");
+        txtrDescricaoOng.setText("O Banco de Alimentos é uma ONG que combate o desperdício de alimentos e ajuda pessoas que passam fome. Eles recolhem alimentos que seriam jogados fora por estabelecimentos comerciais, como supermercados, e distribuem para instituições que cuidam de pessoas em situação de vulnerabilidade, como abrigos e creches. Além disso, os Bancos de Alimentos também conscientizam sobre o desperdício de alimentos e ensinam boas práticas de armazenamento. Eles são importantes para reduzir o desperdício e garantir que mais pessoas tenham acesso a alimentos saudáveis.");
         txtrDescricaoOng.setBounds(220, 95, 350, 325);
         JScrollPane scrollPane = new JScrollPane(txtrDescricaoOng);
         scrollPane.setBounds(220, 95, 350, 252);
         contentPane.add(scrollPane);
         
-        JButton btnDoar = new JButton("Doe!");
+        JButton btnDoar = createStyledButton("Doe!", new Color(186, 215, 233), Color.BLACK);
         btnDoar.setBounds(258, 361, 131, 44);
         contentPane.add(btnDoar);
         
-        JButton btnAcesseOSite = new JButton("Acesse o site!");
+        JButton btnAcesseOSite = createStyledButton("Acesse o site!", new Color(186, 215, 233), Color.BLACK);
         btnAcesseOSite.setBounds(419, 361, 131, 44);
         contentPane.add(btnAcesseOSite);
 
@@ -92,6 +124,9 @@ public class TerceiraOng extends JFrame {
                     	PagamentoMain pagamentoMain = new PagamentoMain(username, "3");
                     	pagamentoMain.setVisible(true);
                         dispose();
+                }else if (button == btnAcesseOSite) {
+                    abrirSite("https://bancodealimentos.org.br/");
+                            
                 } else if (button == primeiraOng) {
                 	PrimeiraOng primeiraOng = new PrimeiraOng(username);
                 	primeiraOng.setVisible(true);
@@ -142,5 +177,6 @@ public class TerceiraOng extends JFrame {
         terceiraOng.addActionListener(actionListener);
         ranking.addActionListener(actionListener);
         btnDoar.addActionListener(actionListener);
+        btnAcesseOSite.addActionListener(actionListener);
     }
 }

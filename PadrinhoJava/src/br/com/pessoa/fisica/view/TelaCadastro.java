@@ -13,12 +13,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-import javax.swing.ImageIcon;
 
 public class TelaCadastro extends JFrame {
 
@@ -27,15 +24,7 @@ public class TelaCadastro extends JFrame {
     private JTextField textFieldNome;
     private JTextField textFieldEmail;
     private JTextField textFieldSenha;
-
-    public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaCadastro().setVisible(true);
-            }
-        });
-    }
-
+    
     public TelaCadastro() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);

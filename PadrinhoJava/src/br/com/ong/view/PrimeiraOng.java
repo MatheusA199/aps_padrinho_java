@@ -1,11 +1,13 @@
 package br.com.ong.view;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
-
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,7 +15,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import br.com.pagamento.view.PagamentoMain;
 import br.com.pessoa_fisica.dao.PessoaFisicaDao;
@@ -36,34 +42,52 @@ public class PrimeiraOng extends JFrame {
         return button;
     }
 
+    private void abrirSite(String url) {
+        try {
+            URI uri = new URI(url);
+            Desktop desktop = Desktop.getDesktop();
+            desktop.browse(uri);
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 
+    
     public PrimeiraOng(String username) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 607, 463);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        
+        Border borda = BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.RED),  // Borda interna
+                BorderFactory.createEmptyBorder(5, 5, 5, 5) // Margens
+        );
 
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        JButton telaPrincipalOng = createStyledButton("Início", new Color(205, 205, 205), Color.BLACK);
+        JButton telaPrincipalOng = createStyledButton("Início", new Color(186, 215, 233), Color.BLACK);
         telaPrincipalOng.setBounds(10, 10, 144, 75);
+        telaPrincipalOng.setBorder(borda);
         contentPane.add(telaPrincipalOng);
+        
+        
 
-        JButton primeiraOng = createStyledButton("Comida no Prato", new Color(0, 153, 51), Color.WHITE);
+        JButton primeiraOng = createStyledButton("Prato Cheio", new Color(127, 205, 145), Color.WHITE);
 
         primeiraOng.setBounds(10, 95, 144, 75);
         contentPane.add(primeiraOng);
 
-        JButton segundaOng = createStyledButton("Instituto Regeneração Global (IRG)", new Color(0, 153, 51), Color.WHITE);
+        JButton segundaOng = createStyledButton("Cidade Sem Fome", new Color(127, 205, 145), Color.WHITE);
         segundaOng.setBounds(10, 177, 144, 75);
         contentPane.add(segundaOng);
 
-        JButton terceiraOng = createStyledButton("Direito à alimentação", new Color(0, 153, 51), Color.WHITE);
+        JButton terceiraOng = createStyledButton("Banco de Alimentos", new Color(127, 205, 145), Color.WHITE);
         terceiraOng.setBounds(10, 261, 144, 75);
         contentPane.add(terceiraOng);
 
-        JButton ranking = new JButton("Ranking");
+        JButton ranking = createStyledButton("Ranking", new Color(186, 215, 233), Color.BLACK);
         ranking.setBounds(10, 346, 144, 75);
         	    contentPane.add(ranking);
 
@@ -71,7 +95,7 @@ public class PrimeiraOng extends JFrame {
         txtBemvindoAoSistema.setEditable(false);
         txtBemvindoAoSistema.setHorizontalAlignment(SwingConstants.CENTER);
         txtBemvindoAoSistema.setFont(new Font("Tahoma", Font.BOLD, 16));
-        txtBemvindoAoSistema.setText("Comida no Prato");
+        txtBemvindoAoSistema.setText("Associação Prato Cheio");
         txtBemvindoAoSistema.setBounds(220, 20, 350, 50);
         contentPane.add(txtBemvindoAoSistema);
         txtBemvindoAoSistema.setColumns(10);
@@ -81,21 +105,25 @@ public class PrimeiraOng extends JFrame {
         txtrDescricaoOng.setWrapStyleWord(true);
         txtrDescricaoOng.setEditable(false);
         txtrDescricaoOng.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        txtrDescricaoOng.setText("Comida no Prato é uma iniciativa no Brasil que busca reduzir o desperdício de alimentos. Consiste em oferecer aos clientes de restaurantes a opção de servir a quantidade de comida que desejam, evitando que se sirvam mais do que possam consumir e que se desperdicem comida. O conceito é simples: o cliente paga pelo peso da comida que se serviu no seu prato, lo que le da la liberdade de elegir a cantidad de comida que deseja comer e reduzir o desperdicio de alimentos ao mesmo tempo.\r\n"
-        		+ ""
-        		+ "Esta iniciativa também ajuda a los restaurantes a reduzir os custos de desperdício de alimentos, al time que permite a los clientes ahorrar dinero al não pagar por alimentos que não van a consumir. Além disso, promova uma alimentação saudável e sustentável, para que os clientes possam escolher uma variedade de alimentos e ajustar suas porções de acordo com suas necessidades.\r\n"
-        		+ ""
-        		+ "A iniciativa Comida no Prato tem sido adotada em vários restaurantes no Brasil e tem demonstrado ser uma forma eficaz de reduzir o desperdício de alimentos e promover uma alimentação mais consciente.");
+        txtrDescricaoOng.setText("Bem-vindos à Associação Prato Cheio!\r\n"
+        		+ "\r\n"
+        		+ "A Associação Prato Cheio é uma ONG certificada como OSCIP, fundada em 2001 por um grupo de universitários preocupados com o desperdício de alimentos no Mercado Municipal de São Paulo. Seu objetivo principal é promover o acesso à alimentação adequada para pessoas em situação de vulnerabilidade e risco social.\r\n"
+        		+ "\r\n"
+        		+ "A atuação da Prato Cheio baseia-se em três pilares estratégicos. O primeiro é a Colheita Urbana, em que a organização coleta alimentos frescos que seriam descartados de forma segura e os redistribui para quem mais precisa. O segundo pilar é a Educação e Sistematização do Conhecimento, que visa fornecer conteúdo educativo sobre nutrição e práticas sustentáveis para diversos públicos. O terceiro pilar, Alimentação e Desenvolvimento Sustentável, busca promover sistemas alimentares justos e sustentáveis, reduzindo o desperdício de alimentos e resíduos orgânicos na cidade de São Paulo.\r\n"
+        		+ "\r\n"
+        		+ "Os projetos da Prato Cheio estão alinhados com os Objetivos do Desenvolvimento Sustentável da ONU, contribuindo diretamente para o combate à fome (ODS 2), a promoção de cidades e comunidades sustentáveis (ODS 11) e o consumo e produção responsáveis (ODS 12). Essas ações visam reduzir o desperdício, minimizar os impactos ambientais e levar alimentos de qualidade para pessoas em situação de vulnerabilidade social.\r\n"
+        		+ "\r\n"
+        		+ "Junte-se à Associação Prato Cheio nessa missão! Com o apoio de cada um, é possível fazer a diferença, nutrindo vidas e alimentando esperanças.\r\n");
         txtrDescricaoOng.setBounds(220, 95, 350, 325);
         JScrollPane scrollPane = new JScrollPane(txtrDescricaoOng);
         scrollPane.setBounds(220, 95, 350, 252);
         contentPane.add(scrollPane);
         
-        JButton btnDoar = new JButton("Doe!");
+        JButton btnDoar = createStyledButton("Doe!", new Color(186, 215, 233), Color.BLACK);
         btnDoar.setBounds(258, 361, 131, 44);
         contentPane.add(btnDoar);
         
-        JButton btnAcesseOSite = new JButton("Acesse o site!");
+        JButton btnAcesseOSite = createStyledButton("Acesse o site!", new Color(186, 215, 233), Color.BLACK);
         btnAcesseOSite.setBounds(419, 361, 131, 44);
         contentPane.add(btnAcesseOSite);
 
@@ -115,7 +143,9 @@ public class PrimeiraOng extends JFrame {
                 	PagamentoMain pagamentoMain = new PagamentoMain(username, "1");
                 	pagamentoMain.setVisible(true);
                     dispose();
-                    
+                } else if (button == btnAcesseOSite) {
+                	abrirSite("https://pratocheio.org.br/");
+                
                 } else if (button == segundaOng) {
                 	SegundaOng segundaOng = new SegundaOng(username);
                 	segundaOng.setVisible(true);
@@ -163,5 +193,6 @@ public class PrimeiraOng extends JFrame {
         terceiraOng.addActionListener(actionListener);
         ranking.addActionListener(actionListener);
         btnDoar.addActionListener(actionListener);
+        btnAcesseOSite.addActionListener(actionListener);
     }
 }
