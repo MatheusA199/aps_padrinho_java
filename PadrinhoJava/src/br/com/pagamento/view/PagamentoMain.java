@@ -86,12 +86,11 @@ public class PagamentoMain extends JFrame implements ActionListener {
         painelDados.add(numeroOngField, gbc);
 
         // Lógica para definir o texto do JLabel com base no parâmetro recebido
-        String parametro = numeroOngBtn; // Substitua "exemplo" pelo valor do parâmetro real que você recebe
-        if (parametro.equals("1")) {
+        if (numeroOngBtn.equals("1")) {
             numeroOngField.setText("Prato Cheio");
-        } else if (parametro.equals("2")) {
+        } else if (numeroOngBtn.equals("2")) {
             numeroOngField.setText("Cidade Sem Fome");
-        } else if (parametro.equals("3")) {
+        } else if (numeroOngBtn.equals("3")) {
             numeroOngField.setText("Banco de Alimentos");
         }
 
@@ -117,9 +116,9 @@ public class PagamentoMain extends JFrame implements ActionListener {
 	            public void actionPerformed(ActionEvent actionEvent) {
 	                Object button = actionEvent.getSource();
 	                if (button == pagarButton) {
-	                	realizarPagamento(username, parametro);
+	                	realizarPagamento(username, numeroOngBtn);
 	                }else if (button == voltarButton) {
-	                	voltarParaTelaAnterior(username, parametro);
+	                	voltarParaTelaAnterior(username, numeroOngBtn);
 	       			}
 	        	}
 	        };
@@ -130,7 +129,7 @@ public class PagamentoMain extends JFrame implements ActionListener {
         }
 
     // método para realizar o pagamento
-    private void realizarPagamento(String username, String parametro) {
+    private void realizarPagamento(String username, String numeroOngBtn) {
         // Implemente a lógica para realizar o pagamento aqui
         String numeroCartao = numeroCartaoField.getText();
         String cvv = cvvField.getText();
@@ -143,7 +142,7 @@ public class PagamentoMain extends JFrame implements ActionListener {
         }
 
         try {
-            double valorPagamento = Double.parseDouble(valor);
+            double valorPagamento = Double.parseDouble(numeroOngBtn);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Valor inválido!");
             return;
@@ -152,7 +151,7 @@ public class PagamentoMain extends JFrame implements ActionListener {
         try {
             PessoaFisicaDao pfDao = new PessoaFisicaDao();
 
-            if (pfDao.savePagamento(numeroCartao, cvv, username, valor, parametro)) {
+            if (pfDao.savePagamento(numeroCartao, cvv, username, valor, numeroOngBtn)) {
                 // realiza a transação
                 // aqui deve estar o código para realizar a transação, utilizando as informações dos campos
                 JOptionPane.showMessageDialog(this, "Pagamento realizado com sucesso!");
@@ -170,16 +169,16 @@ public class PagamentoMain extends JFrame implements ActionListener {
     }
 
     // método para voltar para a tela anterior
-    private void voltarParaTelaAnterior(String username, String parametro) {
-        if (parametro.equals("1")) {
+    private void voltarParaTelaAnterior(String username, String numeroOngBtn) {
+        if (numeroOngBtn.equals("1")) {
             PrimeiraOng primeiraOng = new PrimeiraOng(username);
         	primeiraOng.setVisible(true);
             dispose();
-        } else if (parametro.equals("2")) {
+        } else if (numeroOngBtn.equals("2")) {
             SegundaOng segundaOng = new SegundaOng(username);
         	segundaOng.setVisible(true);
             dispose();
-        } else if (parametro.equals("3")) {
+        } else if (numeroOngBtn.equals("3")) {
             TerceiraOng terceiraOng = new TerceiraOng(username);
 	    	terceiraOng.setVisible(true);
 	        dispose();

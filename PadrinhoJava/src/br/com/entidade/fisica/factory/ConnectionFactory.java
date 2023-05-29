@@ -21,14 +21,4 @@ public class ConnectionFactory {
 		Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
 		return connection;
 	}
-	
-	public static void main(String[] args) throws Exception{
-		Connection  con = createConnectionToMySQL();
-		
-		if (con!=null) {
-			System.out.println("Conexão obtida com sucesso!");
-			con.close();
-		}
-		
-	}
 }
